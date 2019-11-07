@@ -21,6 +21,28 @@ public class MyView extends View {
             array[i] = rand (min, max);
         }
     }
+    void drawBalls(Canvas canvas)
+    {
+        Paint paint = new Paint();
+        for (int i = 0; i < N; i++) {
+            paint.setColor(Color.rgb(re,gr,bl));
+            paint.setStyle(Paint.Style.FILL);
+            canvas.drawCircle(x[i], y[i], rad, paint);
+            paint.setColor(Color.WHITE);
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setStrokeWidth(8);
+            canvas.drawCircle(x[i], y[i], rad, paint);
+
+        }
+        if(re==255&&gr==0&&bl!=255){bl+=5;}
+        else if(re==0&&gr!=255&&bl==255){gr+=5;}
+        else if (re==0&&gr==255&&bl!=0){bl-=5;}
+        else if (re!=255&&gr==255&&bl==0){re+=5;}
+        else if (re==255&&gr!=0&&bl==0){gr-=5;}
+        else if(re!=0&&gr==0&&bl==255){re-=5;}
+
+
+    }
     void addValues(float[] array , float[] values){
         for (int i = 0; i < array.length; i++){
             array[i] += values[i];
@@ -37,23 +59,8 @@ public class MyView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
-        //Здесь располагаются команды рисования
-        ///...
-
-        Paint paint = new Paint();
-        // отрисовываем все шарики
         canvas.drawColor(Color.BLACK);
-        for (int i = 0; i < N; i++) {
-            paint.setColor(Color.rgb(re,gr,bl));
-            paint.setStyle(Paint.Style.FILL);
-            canvas.drawCircle(x[i], y[i], rad, paint);
-            paint.setColor(Color.WHITE);
-            paint.setStyle(Paint.Style.STROKE);
-            paint.setStrokeWidth(8);
-            canvas.drawCircle(x[i], y[i], rad, paint);
-        }
-        // готовим массивы x и у для следущего кадра
+        drawBalls(canvas);
         addValues(x, vx);
         addValues(y, vy);
         for (int i = 0; i < N; i++) {
@@ -73,13 +80,6 @@ public class MyView extends View {
             else
                 rad -= 0.08;
         }
-        if(re==255&&gr==0&&bl!=255){bl+=5;}
-        else if(re==0&&gr!=255&&bl==255){gr+=5;}
-        else if (re==0&&gr==255&&bl!=0){bl-=5;}
-        else if (re!=255&&gr==255&&bl==0){re+=5;}
-        else if (re==255&&gr!=0&&bl==0){gr-=5;}
-        else if(re!=0&&gr==0&&bl==255){re-=5;}
-        //запрашиваем перерисовку
         invalidate();
     }
 }
