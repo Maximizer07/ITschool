@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:layout_columnWeight="50"
     >
 
     <HorizontalScrollView
@@ -12,9 +12,9 @@
 
         <GridLayout
             android:id="@+id/CellsLayout"
-            android:background="@android:color/holo_green_light"
+            android:background="@android:color/holo_blue_dark"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="1000dp"
             android:padding="5dp"
             >
         </GridLayout>
