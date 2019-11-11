@@ -16,7 +16,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity implements OnClickListener,
         OnLongClickListener{
     int win=0;
-    int numMines=12;
+    int numMines=10;
     int count = 10;
     private int WIDTH = 7;
     private int HEIGHT = 10;
@@ -116,12 +116,11 @@ public class MainActivity extends Activity implements OnClickListener,
                 m++;
             }
         }
-        /* for (int i = 0; i < HEIGHT-1; i++)
-            for (int j = 0; j < WIDTH; j++) {
-                if (mines[i][j]==1) cells[i][j].setText("X");
-
-            }
-        */
+/* for (int i = 0; i < HEIGHT-1; i++)
+for (int j = 0; j < WIDTH; j++) {
+if (mines[i][j]==1) cells[i][j].setText("X");
+}
+*/
     }
 
     public void show (int x,int y) {
@@ -133,9 +132,11 @@ public class MainActivity extends Activity implements OnClickListener,
             }
         cells[x][y].setBackgroundColor(Color.WHITE);
         String Num = String.valueOf(numk);
-        if (flages [x][y]==0&&numk!=0) cells[x][y].setText(Num);
+        if (flages [x][y]==0)
+            if (numk!=0) cells[x][y].setText(Num);
+            else cells[x][y].setText("\u2063");
         colls[x][y]=1;
-        if (numk==0){
+        if  (numk==0){
             if(x>0&&colls[x-1][y]==0){show(x-1,y);}
             if(y<6&&x>0&&colls[x-1][y+1]==0){show(x-1,y+1);}
             if(y<6&&colls[x][y+1]==0){show(x,y+1);}
@@ -172,7 +173,7 @@ public class MainActivity extends Activity implements OnClickListener,
         }
         else if(win==0&&pov==1){ Toast.makeText(this, "ВЫ ПОБЕДИЛИ", Toast.LENGTH_LONG).show();}
         else if(win==1&&pov==0){ Toast.makeText(this, "ВЫ ПРОИГРАЛИ", Toast.LENGTH_LONG).show();}
-        else if (mines[tappedY][tappedX] == 1){
+        else if (mines[tappedY][tappedX] == 1 && flages [tappedY][tappedX]==0){
 
             Toast.makeText(this, "ВЫ ПРОИГРАЛИ", Toast.LENGTH_LONG).show();
 
@@ -192,8 +193,7 @@ numk++;
 String Num = String.valueOf(numk);
 cells[tappedY][tappedX].setText(Num);
 */
-        } else if (mines[tappedY][tappedX] == 0&&tappedY<9&&win==0){
-
+        } else if (mines[tappedY][tappedX] == 0&&tappedY<9&&win==0&&flages [tappedY][tappedX]==0){
             show(tappedY,tappedX);
             for (int i = 0; i < HEIGHT-1; i++){
                 for (int j = 0; j < WIDTH; j++){if (mines[i][j]==0&&cells[i][j].getText()==""){
